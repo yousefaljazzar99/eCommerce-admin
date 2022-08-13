@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>719803741783-85n94dlv8d2ap9ktcpdd1htdj9cgmgvf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.719803741783-85n94dlv8d2ap9ktcpdd1htdj9cgmgvf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1jEu4mfbJZuUHxVF0slLTc02bndJzfjI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>719803741783</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ecommerce</string>
+	<key>PROJECT_ID</key>
+	<string>ecommerce-app-2213d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ecommerce-app-2213d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:719803741783:ios:4d52602222cb856f0d9512</string>
+	<key>DATABASE_URL</key>
+	<string>https://ecommerce-app-2213d-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
