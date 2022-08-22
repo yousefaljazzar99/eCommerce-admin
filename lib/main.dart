@@ -1,73 +1,66 @@
 import 'package:ecommerce/Provider/auth_provider.dart';
-import 'package:ecommerce/Provider/auth_provider.dart';
 import 'package:ecommerce/Provider/firestore_provider.dart';
-import 'package:ecommerce/view/auth/firebase_options.dart';
+import 'package:ecommerce/Provider/storage_provider.dart';
+import 'package:ecommerce/firebase_options.dart';
 import 'package:ecommerce/models/router.dart';
 import 'package:ecommerce/view/screens/splash_screen.dart';
-import 'package:ecommerce/view/screens/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
-      ChangeNotifierProvider<FireStoreProvider>(
-        create: (context) => FireStoreProvider(),
-      )
-    ],
-    child: MyApp(),
-    // EasyLocalization(
-    //   supportedLocales: [Locale('en'), Locale('ar')],
-    //   path: 'assets/langs', // <-- change the path of the translation files
-    //   fallbackLocale: Locale('en'),
-    //   child: MyApp(),
-    // )
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        // localizationsDelegates: context.localizationDelegates,
-        // supportedLocales: context.supportedLocales,
-        // locale: context.locale,
-        debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        // AuthProvider
+        ChangeNotifierProvider<AuthProvider>(
+            create: (context) => AuthProvider()),
+        // FirestoreProvider
+        ChangeNotifierProvider<FirestoreProvider>(
+            create: (context) => FirestoreProvider()),
+        // StorageProvider
+        ChangeNotifierProvider<StorageProvider>(
+            create: (context) => StorageProvider()),
+      ],
+      child: MaterialApp(
         navigatorKey: AppRouter.navKey,
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Firebase',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Builder(builder: (context) {
-          return SplachScreen();
-        }));
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amberAccent,
-        centerTitle: true,
-        title: Text(widget.title),
+            primaryColor: GreenColors,
+            scaffoldBackgroundColor: Colors.white,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                primary: GreenColors,
+                shape: const StadiumBorder(),
+                maximumSize: const Size(double.infinity, 56),
+                minimumSize: const Size(double.infinity, 56),
+              ),
+            ),
+            inputDecorationTheme: const InputDecorationTheme(
+              filled: true,
+              fillColor: kPrimaryLightColor,
+              iconColor: GreenColors,
+              prefixIconColor: GreenColors,
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: defaultPadding, vertical: defaultPadding),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide.none,
+              ),
+            )),
+        home: SplachScreen(),
       ),
     );
   }

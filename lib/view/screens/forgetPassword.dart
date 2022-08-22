@@ -1,4 +1,3 @@
-import 'package:ecommerce/view/auth/auth_helper.dart';
 import 'package:ecommerce/Provider/auth_provider.dart';
 import 'package:ecommerce/view/widget/custum_textfield.dart';
 import 'package:ecommerce/models/router.dart';
@@ -22,6 +21,7 @@ class ForgetPassword extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        centerTitle: true,
         title: Text('استعادة كلمة المرور'),
       ),
       body: Consumer<AuthProvider>(builder: (context, provider, x) {
@@ -40,7 +40,7 @@ class ForgetPassword extends StatelessWidget {
                   child: CustumTextField(
                     textInputType: TextInputType.emailAddress,
                     titel: 'البريد الالكتروني',
-                    controller: provider.EmailcontrollerLogin,
+                    controller: provider.LoginemailController,
                     validtor: provider.validatorEmail,
                     suffix: Icon(Icons.email),
                   ),
@@ -48,16 +48,20 @@ class ForgetPassword extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      textStyle:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      fixedSize: Size(250, 40)),
-                  child: Text('استعادة كلمة المرور'),
-                  onPressed: () {
-                    provider.ForgetPassword();
-                  },
+                Container(
+                  height: 48,
+                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        textStyle: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                        fixedSize: Size(250, 40)),
+                    child: Text('استعادة كلمة المرور'),
+                    onPressed: () {
+                      provider.ForgetPassword();
+                    },
+                  ),
                 ),
               ],
             ),

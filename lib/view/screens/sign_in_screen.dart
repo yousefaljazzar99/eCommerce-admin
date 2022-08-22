@@ -1,13 +1,12 @@
 import 'dart:developer';
 
-import 'package:ecommerce/view/auth/auth_helper.dart';
 import 'package:ecommerce/Provider/auth_provider.dart';
 import 'package:ecommerce/view/screens/SignUp.dart';
 import 'package:ecommerce/view/widget/custom_button_social.dart';
 import 'package:ecommerce/view/widget/custum_button.dart';
 import 'package:ecommerce/view/widget/custum_textfield.dart';
 import 'package:ecommerce/view/screens/forgetPassword.dart';
-import 'package:ecommerce/view/screens/profile.dart';
+import 'package:ecommerce/view/screens/CategoriesScreen.dart';
 import 'package:ecommerce/models/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +52,7 @@ class _SignInSecreen extends State<SignInSecreen> {
                       child: CustumTextField(
                         textInputType: TextInputType.emailAddress,
                         titel: 'البريد الالكتروني',
-                        controller: provider.EmailcontrollerLogin,
+                        controller: provider.LoginemailController,
                         validtor: provider.validatorEmail,
                         suffix: Icon(
                           Icons.email,
@@ -68,7 +67,7 @@ class _SignInSecreen extends State<SignInSecreen> {
                         hidepassword: true,
                         textInputType: TextInputType.visiblePassword,
                         titel: 'كلمة المرور',
-                        controller: provider.PasswordcontrollerLogin,
+                        controller: provider.LoginpasswordController,
                         validtor: provider.validatorPassword,
                         suffix: Icon(
                           Icons.lock,
@@ -76,41 +75,45 @@ class _SignInSecreen extends State<SignInSecreen> {
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.grey,
-                          textStyle: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          fixedSize: Size(250, 40)),
-                      child: Text('تسجيل الدخول'),
-                      onPressed: () async {
-                        await provider.signIn();
-                        // AuthHelper.authHelper.signInWithEmailAndPassword(
-                        //     provider.Emailcontroller.text,
-                        //     provider.Passwordcontroller.text);
-                        //AppRouter.NavigateWithReplacemtnToWidget(profile());
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
+                    Container(
+                      height: 48,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.grey,
+                            textStyle: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                            fixedSize: Size(250, 40)),
+                        child: Text('تسجيل الدخول'),
+                        onPressed: () async {
+                          await provider.signIn();
+                          // AuthHelper.authHelper.signInWithEmailAndPassword(
+                          //     provider.Emailcontroller.text,
+                          //     provider.Passwordcontroller.text);
+                          //AppRouter.NavigateWithReplacemtnToWidget(profile());
+                        },
+                      ),
                     ),
 
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                          textStyle: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          fixedSize: Size(250, 40)),
-                      child: Text('مستخدم جديد'),
-                      onPressed: () {
-                        //provider.signUp();
-                        AppRouter.NavigateWithReplacemtnToWidget(SignUp());
-                        // AuthHelper.authHelper.signUp(
-                        //     Emailcontroller.text, Passwordcontroller.text);
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
+                    Container(
+                      height: 48,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                            fixedSize: Size(250, 40)),
+                        child: Text('مستخدم جديد'),
+                        onPressed: () {
+                          //provider.signUp();
+                          AppRouter.NavigateWithReplacemtnToWidget(SignUp());
+                          // AuthHelper.authHelper.signUp(
+                          //     Emailcontroller.text, Passwordcontroller.text);
+                        },
+                      ),
                     ),
 
                     // CustomButtonSocial(

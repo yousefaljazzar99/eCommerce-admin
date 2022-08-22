@@ -11,9 +11,9 @@ class CustumDialog {
             actions: [
               TextButton(
                   onPressed: () {
-                    AppRouter.popRoute();
+                    AppRouter.popRouter();
                   },
-                  child: Text('Ok'))
+                  child: Text('حسنا'))
             ],
           );
         });

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:ecommerce/models/router.dart';
-import 'package:ecommerce/view/screens/profile.dart';
+import 'package:ecommerce/view/screens/CategoriesScreen.dart';
 import 'package:ecommerce/view/screens/sign_in_screen.dart';
 import 'package:ecommerce/view/widget/custum_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,15 +48,17 @@ class AuthHelper {
   VerifyEmail(String email) async {
     User? user = firebaseAuthInstance.currentUser;
     user?.sendEmailVerification();
+    CustumDialog.showDialogFunction(
+        'تبقت خطوة واحدة , راجع البريد الالكتروني وقم بتفعيل الحساب..');
   }
 
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
   checkUser() async {
     User? user = firebaseAuthInstance.currentUser;
-    if (user == null || !user.emailVerified) {
+    if (user == null) {
       AppRouter.NavigateWithReplacemtnToWidget(SignInSecreen());
     } else {
-      AppRouter.NavigateWithReplacemtnToWidget(profile());
+      AppRouter.NavigateWithReplacemtnToWidget(CategoriesScreen());
     }
   }
 

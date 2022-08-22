@@ -1,3 +1,4 @@
+import 'package:ecommerce/view/screens/CategoriesScreen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -10,7 +11,7 @@ class AppRouter {
     return x;
   }
 
-  static popRoute() {
+  static popRouter() {
     Navigator.of(navKey.currentContext!).pop();
   }
 
@@ -21,3 +22,7 @@ class AppRouter {
     }));
   }
 }
+
+const GreenColors = Colors.green;
+const kPrimaryLightColor = Color(0xFFF1E6FF);
+const double defaultPadding = 16.0;

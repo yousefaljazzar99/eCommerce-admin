@@ -1,14 +1,21 @@
+import 'package:ecommerce/Firebase/auth_helper.dart';
+import 'package:ecommerce/Firebase/firestore_helper.dart';
+import 'package:ecommerce/models/AppUser.dart';
 import 'package:ecommerce/models/router.dart';
-import 'package:ecommerce/view/auth/auth_helper.dart';
 import 'package:ecommerce/view/screens/country.dart';
 import 'package:ecommerce/view/screens/forgetPassword.dart';
-import 'package:ecommerce/view/screens/profile.dart';
-import 'package:ecommerce/view/screens/sign_in_screen.dart';
+import 'package:ecommerce/view/screens/CategoriesScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:string_validator/string_validator.dart';
 
 class AuthProvider extends ChangeNotifier {
+  nullValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "الحقل مطلوب";
+    }
+  }
+
   String? validatorEmail(String v) {
     if (!isEmail(v)) {
       return 'خطأ في البريد الالكتروني';
@@ -41,38 +48,86 @@ class AuthProvider extends ChangeNotifier {
 
   Country? selectedCountry;
   String? selectedCity;
+  String? countryCode = '970';
+
   GlobalKey<FormState> loginKey = GlobalKey();
   GlobalKey<FormState> SignUpKey = GlobalKey();
-  TextEditingController EmailcontrollerLogin = TextEditingController();
-  TextEditingController PasswordcontrollerLogin = TextEditingController();
+  TextEditingController LoginemailController = TextEditingController();
+  TextEditingController LoginpasswordController = TextEditingController();
 
-  TextEditingController Emailcontroller = TextEditingController();
-  TextEditingController Idcontroller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
 
-  TextEditingController Phonecontroller = TextEditingController();
-  TextEditingController UserNamecontroller = TextEditingController();
-  TextEditingController Passwordcontroller = TextEditingController();
-
+  // signIn() async {
+  //   if (loginKey.currentState!.validate()) {
+  //     UserCredential? credential = await AuthHelper.authHelper
+  //         .signInWithEmailAndPassword(
+  //             EmailcontrollerLogin.text, PasswordcontrollerLogin.text);
+  //     if (credential != null) {
+  //       AppRouter.NavigateWithReplacemtnToWidget(profile());
+  //     }
+  //   }
+  // }
   signIn() async {
     if (loginKey.currentState!.validate()) {
-      UserCredential? credential = await AuthHelper.authHelper
+      UserCredential? userCredential = await AuthHelper.authHelper
           .signInWithEmailAndPassword(
-              EmailcontrollerLogin.text, PasswordcontrollerLogin.text);
-      if (credential != null) {
-        AppRouter.NavigateWithReplacemtnToWidget(profile());
+              LoginemailController.text, LoginemailController.text);
+      AppUser appUser = AppUser(
+          id: userCredential!.user!.uid, // unique id from firebase auth
+          email: LoginemailController.text,
+          userName: userNameController.text,
+          phone: phoneController.text,
+          city: cityController.text,
+          country: countryController.text);
+      FirestoreHelper.firestoreHelper.getUserFromFirestore(appUser.id!);
+      if (userCredential != null) {
+        AppRouter.NavigateWithReplacemtnToWidget(CategoriesScreen());
+        // emailController.clear();
+        // passwordController.clear();
       }
     }
   }
 
   signUp() async {
     if (SignUpKey.currentState!.validate()) {
-      UserCredential? credential = await AuthHelper.authHelper
-          .signUp(Emailcontroller.text, Passwordcontroller.text);
-      if (credential != null) {
-        AppRouter.NavigateWithReplacemtnToWidget(profile());
+      UserCredential? userCredential = await AuthHelper.authHelper
+          .signUp(emailController.text, passwordController.text);
+
+      AppUser appUser = AppUser(
+          id: userCredential!.user!.uid, // unique id from firebase auth
+          email: emailController.text,
+          userName: userNameController.text,
+          phone: phoneController.text,
+          city: cityController.text,
+          country: countryController.text);
+
+      FirestoreHelper.firestoreHelper.addUserToFirestore(appUser);
+
+      if (userCredential != null) {
+        AppRouter.NavigateWithReplacemtnToWidget(CategoriesScreen());
+        // emailController.clear();
+        // passwordController.clear();
+        // userNameController.clear();
+        // phoneController.clear();
+        // cityController.clear();
       }
     }
   }
+
+  // signUp() async {
+  //   if (SignUpKey.currentState!.validate()) {
+  //     UserCredential? credential = await AuthHelper.authHelper
+  //         .signUp(Emailcontroller.text, Passwordcontroller.text);
+  //     if (credential != null) {
+  //       AppRouter.NavigateWithReplacemtnToWidget(profile());
+  //     }
+  //   }
+  // }
 
   checkUser() {
     AuthHelper.authHelper.checkUser();
@@ -84,6 +139,6 @@ class AuthProvider extends ChangeNotifier {
 
   ForgetPassword() async {
     await AuthHelper.authHelper
-        .sendPasswordResetEmail(EmailcontrollerLogin.text);
+        .sendPasswordResetEmail(LoginemailController.text);
   }
 }

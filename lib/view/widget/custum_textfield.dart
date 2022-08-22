@@ -6,12 +6,15 @@ class CustumTextField extends StatelessWidget {
   TextEditingController? controller;
   TextInputType? textInputType;
   Widget? suffix;
+  Widget? preffix;
+
   bool? hidepassword;
   CustumTextField(
       {required this.titel,
       required this.validtor,
       required this.controller,
       this.suffix,
+      this.preffix,
       this.textInputType,
       this.hidepassword});
   @override
